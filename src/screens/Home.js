@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Axios from "axios";
+import { Dimensions } from 'react-native';
 
 import { Text, Input, Box, Button } from "../components/style";
-// onPress={() => navigation.navigate('Details')}
 
 export default function HomeScreen({ navigation }) {
   const [keyword, setKeyword] = useState("");
@@ -10,10 +10,10 @@ export default function HomeScreen({ navigation }) {
   const [message, setMessage] = useState("");
   const [loading, setLoad] = useState(false);
 
+  const {width} = Dimensions.get('window')
   const searchMovie = async () => {
     Axios(`http://www.omdbapi.com/?apikey=6e23ab0f&s=${keyword}`)
       .then((response) => {
-        console.log(response);
         if (response.data.Response === "True") {
           setMessage("");
           setResults(response.data.Search);
@@ -25,21 +25,22 @@ export default function HomeScreen({ navigation }) {
       .catch((err) => console.log(err));
   };
 
-  console.log(results);
   return (
     <Box flex={1} p={10}>
       <Box flex={1} alignItems="center">
         <Text fontSize={21}>Search a movie</Text>
         <Input
-          width="90%"
-          height={70}
+          width={width * 0.9}
+          display="block"
+          py={20}
+          style={{width: '90%'}}
           px={20}
           fontSize={20}
           bg={"#ddd"}
           color="black"
           mt={10}
           placeholder="movie name"
-          borderRadius="normal"
+          borderRadius={"normal"}
           onChangeText={(e) => setKeyword(e)}
         />
         <Button
@@ -47,7 +48,7 @@ export default function HomeScreen({ navigation }) {
           mt={30}
           bg="0.dark"
           height={70}
-          borderRadius="normal"
+          borderRadius={"normal"}
           onPress={searchMovie}
         >
           <Text color="0.light" fontWeight="bold" fontSize={18}>
@@ -67,7 +68,7 @@ export default function HomeScreen({ navigation }) {
                 height={40}
                 mt={5}
                 mb={5}
-                width="90%"
+                style={{width: width * 0.9}}
                 bg="1.dark"
                 borderRadius="normal"
                 onPress={() =>

@@ -1,5 +1,5 @@
 import {TouchableOpacity} from 'react-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {
   compose,
   color,
